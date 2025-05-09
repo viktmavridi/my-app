@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy only package files to leverage Docker cache
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies (use npm ci for consistency and speed)
+RUN npm ci --only=production
 
 # Copy the rest of the application files
 COPY . .
@@ -22,8 +22,15 @@ WORKDIR /app
 # Copy only the necessary files from the build stage
 COPY --from=build /app /app
 
+# Install production dependencies only
+RUN npm prune --production
+
 # Expose port 3000
 EXPOSE 3000
+
+# Use a non-root user for security
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
 
 # Run the app
 CMD ["npm", "start"]
