@@ -28,8 +28,8 @@ RUN npm prune --production
 # Expose port 3000
 EXPOSE 3000
 
-# Use a non-root user for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# Use a non-root user for security (Debian style)
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 USER appuser
 
 # Run the app
