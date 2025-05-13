@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "RESTful API built with Node.js and Express, packaged in a Docker container for scalable deployment.",
   "dependencies": {
     "express": "^5.1.0"
   }
